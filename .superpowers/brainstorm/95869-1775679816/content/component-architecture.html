@@ -1,0 +1,97 @@
+<h2>Section 3 — Component Architecture</h2>
+<p class="subtitle">"Name the Queen" flow: component tree and state machine</p>
+
+<div style="margin-top: 24px;">
+  <h3>Component Tree</h3>
+  <div style="background: #1a1a1a; color: #f8f8f3; padding: 20px; border-radius: 12px; font-family: monospace; font-size: 13px; line-height: 2;">
+    <div>📦 <span style="color: #fdff91;">NameTheQueen</span> <span style="color: #787664;">— state machine wrapper, manages step transitions</span></div>
+    <div style="padding-left: 24px;">├── 🎴 <span style="color: #85e89d;">QueenCard</span> <span style="color: #787664;">— shared card shell (rounded-xl, shadow, overflow-clip)</span></div>
+    <div style="padding-left: 48px;">├── 🎨 <span style="color: #79b8ff;">CardHeader</span> <span style="color: #787664;">— icon circle + title + subtitle + optional Lottie bg</span></div>
+    <div style="padding-left: 48px;">├── 📸 <span style="color: #79b8ff;">CardMedia</span> <span style="color: #787664;">— image / confirmation / name list / winner reveal</span></div>
+    <div style="padding-left: 48px;">└── 📝 <span style="color: #79b8ff;">CardActions</span> <span style="color: #787664;">— buttons and input area</span></div>
+    <div style="padding-left: 24px;">├── 📋 <span style="color: #85e89d;">NameList</span> <span style="color: #787664;">— sorted list of suggestions with vote counts</span></div>
+    <div style="padding-left: 48px;">└── 🗳️ <span style="color: #79b8ff;">NameListItem</span> <span style="color: #787664;">— rank + name + vote toggle</span></div>
+    <div style="padding-left: 24px;">├── 🎯 <span style="color: #85e89d;">VoteToggle</span> <span style="color: #787664;">— upvote button (default / voted states)</span></div>
+    <div style="padding-left: 24px;">└── 🌀 <span style="color: #85e89d;">LottieBackground</span> <span style="color: #787664;">— wraps lottie-react player, positioned absolute</span></div>
+  </div>
+</div>
+
+<div style="margin-top: 32px;">
+  <h3>State Machine</h3>
+  <div style="background: #1a1a1a; color: #f8f8f3; padding: 20px; border-radius: 12px; font-size: 13px;">
+    <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+      <div style="background: #3e1915; color: #f8f8f3; padding: 8px 16px; border-radius: 8px; font-weight: 600;">INPUT</div>
+      <div style="color: #787664;">→ submit name →</div>
+      <div style="background: #059669; color: white; padding: 8px 16px; border-radius: 8px; font-weight: 600;">SUBMITTED</div>
+      <div style="color: #787664;">→ view names →</div>
+      <div style="background: #59594d; color: #fdff91; padding: 8px 16px; border-radius: 8px; font-weight: 600;">VOTING</div>
+      <div style="color: #787664;">→ 3 votes used →</div>
+      <div style="background: #059669; color: white; padding: 8px 16px; border-radius: 8px; font-weight: 600;">VOTES_COMPLETE</div>
+      <div style="color: #787664;">→ reveal →</div>
+      <div style="background: #db5012; color: #fdff91; padding: 8px 16px; border-radius: 8px; font-weight: 600;">WINNER</div>
+    </div>
+    <div style="margin-top: 16px; color: #787664; font-size: 12px;">
+      * Steps 3 & 4 are the same VOTING state — Step 4 is when votesUsed === maxVotes (3)<br>
+      * Each step knows its theme: INPUT & WINNER = light, rest = dark
+    </div>
+  </div>
+</div>
+
+<div style="margin-top: 32px;">
+  <h3>Story Hierarchy</h3>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+    <div style="background: #f8f8f3; border: 1px solid #d8d8cb; padding: 16px; border-radius: 8px;">
+      <div style="font-weight: 600; font-size: 14px; color: #3e1915; margin-bottom: 8px;">Primitives</div>
+      <ul style="font-size: 13px; color: #282824; list-style: none; padding: 0; margin: 0; line-height: 1.8;">
+        <li>• VoteToggle</li>
+        <li>• NameListItem</li>
+        <li>• LottieBackground</li>
+        <li>• Input (shadcn override)</li>
+        <li>• Button (shadcn override)</li>
+        <li>• Badge</li>
+      </ul>
+    </div>
+    <div style="background: #f8f8f3; border: 1px solid #d8d8cb; padding: 16px; border-radius: 8px;">
+      <div style="font-weight: 600; font-size: 14px; color: #3e1915; margin-bottom: 8px;">Composites</div>
+      <ul style="font-size: 13px; color: #282824; list-style: none; padding: 0; margin: 0; line-height: 1.8;">
+        <li>• QueenCard (shell)</li>
+        <li>• CardHeader</li>
+        <li>• CardMedia</li>
+        <li>• NameList</li>
+      </ul>
+    </div>
+    <div style="background: #282824; border: 1px solid #59594d; padding: 16px; border-radius: 8px; grid-column: span 2;">
+      <div style="font-weight: 600; font-size: 14px; color: #fdff91; margin-bottom: 8px;">Screens (responsive)</div>
+      <ul style="font-size: 13px; color: #f8f8f3; list-style: none; padding: 0; margin: 0; line-height: 1.8; display: flex; gap: 24px;">
+        <li>• NameTheQueen/InputStep</li>
+        <li>• NameTheQueen/SubmittedStep</li>
+        <li>• NameTheQueen/VotingStep</li>
+        <li>• NameTheQueen/WinnerStep</li>
+        <li>• NameTheQueen/FullFlow (interactive)</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div style="margin-top: 32px;">
+  <h3>Responsive Behavior</h3>
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
+    <div style="background: #f8f8f3; border: 1px solid #d8d8cb; padding: 16px; border-radius: 8px; text-align: center;">
+      <div style="font-size: 32px; margin-bottom: 8px;">📱</div>
+      <div style="font-weight: 600; font-size: 14px; color: #3e1915;">Mobile (375px)</div>
+      <div style="font-size: 12px; color: #787664; margin-top: 4px;">Fullscreen card<br>100% width<br>Scrollable content</div>
+    </div>
+    <div style="background: #f8f8f3; border: 1px solid #d8d8cb; padding: 16px; border-radius: 8px; text-align: center;">
+      <div style="font-size: 32px; margin-bottom: 8px;">📋</div>
+      <div style="font-weight: 600; font-size: 14px; color: #3e1915;">Tablet (768px)</div>
+      <div style="font-size: 12px; color: #787664; margin-top: 4px;">Centered card<br>max-w-[400px]<br>Modal overlay</div>
+    </div>
+    <div style="background: #f8f8f3; border: 1px solid #d8d8cb; padding: 16px; border-radius: 8px; text-align: center;">
+      <div style="font-size: 32px; margin-bottom: 8px;">🖥️</div>
+      <div style="font-weight: 600; font-size: 14px; color: #3e1915;">Desktop (1440px)</div>
+      <div style="font-size: 12px; color: #787664; margin-top: 4px;">Sidebar card (336px)<br>Then modal on interaction<br>Fixed width</div>
+    </div>
+  </div>
+</div>
+</content>
+</invoke>
