@@ -27,3 +27,5 @@ dist/
 storybook-static/
 .superpowers/
 tmp/
+
+*storybook.log
