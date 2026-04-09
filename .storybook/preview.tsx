@@ -91,6 +91,11 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
+    options: {
+      storySort: {
+        order: ['Introduction', ['Overview']],
+      },
+    },
     viewport: {
       options: {
         ...MINIMAL_VIEWPORTS,

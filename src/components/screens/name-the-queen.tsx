@@ -99,7 +99,11 @@ export function NameTheQueen({ initialStep = 'INPUT' }: NameTheQueenProps) {
               lottieData={cloudsAnimation}
               lottieHoverToPlay
             />
-            <CardMedia type="image" src="/bee-specimen.jpg" alt="Bee specimen" />
+            <CardMedia
+              type="image"
+              src="/name-the-queen-input.jpg.jpg"
+              alt="Honey bees on honeycomb"
+            />
           </div>
           <div className="flex flex-col gap-[22px] w-full px-3 py-6">
             <div className="flex flex-col gap-1">
