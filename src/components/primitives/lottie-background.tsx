@@ -1,5 +1,10 @@
 import { useRef } from 'react';
-import Lottie, { type LottieRefCurrentProps } from 'lottie-react';
+import LottieImport, { type LottieRefCurrentProps } from 'lottie-react';
+
+// Handle ESM/CJS interop — lottie-react may double-wrap its default export
+const Lottie =
+  (LottieImport as unknown as { default: typeof LottieImport }).default ??
+  LottieImport;
 
 import { cn } from '@/lib/utils';
 
