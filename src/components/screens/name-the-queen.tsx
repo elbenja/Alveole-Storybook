@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
   ArrowLeft01Icon,
   ArrowRight01Icon,
@@ -42,16 +42,6 @@ export function NameTheQueen({ initialStep = 'INPUT' }: NameTheQueenProps) {
   const [suggestions] = useState<QueenSuggestion[]>(MOCK_SUGGESTIONS);
   const [showMaxVotesMsg, setShowMaxVotesMsg] = useState(false);
   const [shakeInput, setShakeInput] = useState(false);
-
-  useEffect(() => {
-    setStep(initialStep);
-    if (initialStep === 'INPUT') {
-      setNameInput('');
-    } else {
-      setNameInput(USER_SUBMITTED_NAME);
-      setSubmittedName(USER_SUBMITTED_NAME);
-    }
-  }, [initialStep]);
 
   const maxVotesReached = votedIds.size >= MAX_VOTES;
   const isLight = step === 'INPUT' || step === 'WINNER';
