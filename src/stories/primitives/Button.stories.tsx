@@ -9,11 +9,12 @@ import { Fragment, type ReactNode } from 'react';
 import { Button } from '@/components/ui/button';
 
 const textVariants = [
+  'primary',
   'default',
-  'outline',
   'secondary',
-  'ghost',
   'destructive',
+  'outline',
+  'ghost',
   'link',
 ] as const;
 
@@ -67,7 +68,7 @@ const meta: Meta<typeof Button> = {
   component: Button,
   args: {
     children: 'Continue',
-    variant: 'default',
+    variant: 'primary',
     size: 'default',
     disabled: false,
   },
@@ -140,7 +141,7 @@ export const TextSizes: Story = {
 export const IconSizes: Story = {
   render: () => (
     <div className="flex flex-col gap-6">
-      {(['default', 'secondary', 'outline', 'ghost'] as const).map((variant) => (
+      {(['primary', 'default', 'secondary', 'outline', 'ghost'] as const).map((variant) => (
         <div key={variant} className="space-y-3">
           <RowLabel>{variant}</RowLabel>
           <div className="flex flex-wrap items-center gap-3">
@@ -165,11 +166,11 @@ export const IconExamples: Story = {
       <div className="space-y-3">
         <RowLabel>Inline Icons</RowLabel>
         <div className="flex flex-wrap items-center gap-3">
-          <Button>
+          <Button variant="primary">
             <InlineStartIcon size={16} />
             Continue
           </Button>
-          <Button>
+          <Button variant="primary">
             Continue
             <InlineEndIcon size={16} />
           </Button>
@@ -206,20 +207,14 @@ export const StatesAndExamples: Story = {
       <div className="space-y-3">
         <RowLabel>Product Examples</RowLabel>
         <div className="flex flex-wrap items-center gap-3">
-          <Button className="bg-brand-yellow text-foreground-accent hover:bg-brand-yellow/90">
+          <Button variant="primary">
             Continue
           </Button>
-          <Button
-            className="bg-brand-yellow text-foreground-accent hover:bg-brand-yellow/90"
-            size="lg"
-          >
+          <Button variant="primary" size="lg">
             Continue
             <InlineEndIcon size={20} />
           </Button>
-          <Button
-            className="w-full max-w-xs bg-brand-yellow text-foreground-accent hover:bg-brand-yellow/90"
-            size="lg"
-          >
+          <Button variant="primary" className="w-full max-w-xs" size="lg">
             Submit your name
           </Button>
           <Button variant="ghost" className="text-base font-medium">
@@ -231,6 +226,9 @@ export const StatesAndExamples: Story = {
       <div className="space-y-3">
         <RowLabel>Disabled</RowLabel>
         <div className="flex flex-wrap items-center gap-3">
+          <Button variant="primary" disabled>
+            Continue
+          </Button>
           <Button disabled>Continue</Button>
           <Button variant="secondary" disabled>
             Review names
@@ -238,10 +236,7 @@ export const StatesAndExamples: Story = {
           <Button variant="destructive" disabled>
             Delete hive
           </Button>
-          <Button
-            className="bg-brand-yellow text-foreground-accent hover:bg-brand-yellow/90"
-            disabled
-          >
+          <Button variant="primary" size="lg" disabled>
             Continue
           </Button>
         </div>
